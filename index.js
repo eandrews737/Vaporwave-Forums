@@ -1,5 +1,6 @@
 
 var mysql = require('mysql');
+var http = require('http');
 
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
@@ -9,22 +10,19 @@ var connection = mysql.createConnection({
   port     : 33060
 });
 
-connection.connect();
+http.createServer(function (req, res) {
 
-// connection.query('INSERT INTO table1 VALUES (1, `doggy dog world`)'){
+  res.writeHeader(200, {"Content-Type": "text/html"});  
 
-//     if (!err)
-//       console.log('added!');
-//     else
-//       console.log('');
-// }
+  connection.query('SELECT * from test2', function(err, people, fields) {
+      var i = 0;
+      people.map(function(person) {
+        res.write('<br/>' + person.name + ' ' + person.dob);
 
-connection.query('SELECT * from test2', function(err, people, fields) {
+        if (++i === people.length) {
+          res.end();
+        }
+      })
+  });
 
-    people.map(function(person) {
-      console.log(person.name);
-      console.log(person.dob);
-    })
-});
-
-connection.end();
+}).listen(8080);
