@@ -1,11 +1,12 @@
-CREATE TABLE test2 {
-	id int(11) NOT NULL AUTO_INCREMENT,
-	name varchar(50),
-	dob int(11) NOT NULL AUTO_INCREMENT,
-	PRIMARY KEY (id)
-)	Engine=InnoDB	DEFAULT CHARSET=utf8 AUTO_INCREMENT=5;
+CREATE TABLE `test2` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `dob` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
-INSERT INTO test2 (id, name, dob) VALUES
-(1, ‘Eric’, 0206),
-(2, ‘John’, 0609),
-(3, ‘Jacob’, 1203);
+INSERT INTO `test2` (`id`, `name`, `dob`)
+VALUES
+  (5, 'ERIC', '2016-03-01 00:00:00'),
+  (6, 'DANIEL', '1986-03-29 00:00:00'),
+  (7, 'BOB', '1972-06-07 00:00:00');
