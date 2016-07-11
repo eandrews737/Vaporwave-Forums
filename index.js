@@ -26,12 +26,13 @@ var renderMainPage = function(args) {
 
     <h1>${args.title}</h1>
     <table>
-      <tr><th>Name</th><th>D.O.B.</th>
+      <tr><th>ID</th><th>Name</th><th>D.O.B.</th>
       ${args.people.join('')}
     </table>
-    <form action="/person" method="post">
-      <input name="name" /><br/>
-      <input name="dob" /><br/>
+    <form action="/home" method="post">
+      <br/><input name="id" />
+      <input name="name" />
+      <input name="dob" />
       <input value="submit" type="submit" />
     </form>
   </body>
@@ -39,21 +40,29 @@ var renderMainPage = function(args) {
   `;
 };
 
-app.post('/person', function (req, res) {
+// Reads in newly added people
+app.post('/home', function (req, res) {
   console.log(req.body);
-  // here intercept the post
-  // req.body.name
-  // req.body.dob
-  // here insert into the people database
-  // and refresh the listing
+
+  // Captured Values
+  var sentCrap = req.body;
+
+  connection.query('INSERT INTO test2 SET ?', sentCrap,function(err, people, fields) {
+  
+    // I see
+  });
+
+  // Refreshed the page
+  res.redirect(req.get('referer'));
+
 });
 
-app.get('/people', function (req, res) {
+app.get('/home', function (req, res) {
   var peopleList = [];
 
   connection.query('SELECT * from test2', function(err, people, fields) {
     people.map(function(person) {
-      peopleList.push(`<tr><td>${person.name}</td><td>${person.dob}</td></tr>`);
+      peopleList.push(`<tr><td>${person.id}</td><td>${person.name}</td><td>${person.dob}</td></tr>`);
     })
 
     res.send(renderMainPage({
@@ -62,5 +71,7 @@ app.get('/people', function (req, res) {
     }));
   });
 })
+
+
 
 app.listen(8080);
