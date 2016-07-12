@@ -36,50 +36,26 @@ app.post('/person', function (req, res) {
   });
 });
 
-// formats the Id count
-function formatId(id){
-
-  var prefix = "0000";
-  return prefix.substring(0, prefix.length-String(id).length) + id;
-}
-
-// Sets any blank dates to N/A
-function formatDate(date){
-
-  if (!date || date === '0000-00-00 00:00:00') {
-    return 'N/A';
-  }
-
-  return date;
-}
-
-// Sets any name thats blank to anonymous
-function anonymous(name){
-
-  if(!name){
-    return "anonymous";
-  }
-
-  return name;
-}
-
 // Gets the information from the database
 app.get('/', function (req, res) {
   var peopleList = [];
 
   connection.query('SELECT * from test2', function(err, people, fields) {
-    people.map(function(person) {
-      peopleList.push({
-        id: formatId(person.id),
-        name: anonymous(person.name),
-        time: formatDate(person.time),
-        comment: person.comment
-      });
-    });
 
     res.render('index', {
       title: 'Macintoshplus',
-      people: peopleList
+      people: people,
+      formatDate: function() {
+        if (!this.date || this.date === '0000-00-00 00:00:00') {
+          return 'N/A';
+        }
+        return date;
+      },
+      formatId: function() {
+        // formats the Id count
+        var prefix = "0000";
+        return prefix.substring(0, prefix.length-String(this.id).length) + this.id;
+      }
     });
   });
 });
