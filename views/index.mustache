@@ -48,21 +48,26 @@
       <div class="six columns"><strong>Time</strong></div>
     </div>
 
-    {{#people}}
+    {{^comments}}
       <div class="row">
-        <div class="three columns">{{id}}</div>
+        <div class="twelve columns">No Comments</div>
+      </div>
+    {{/comments}}
+    {{#comments}}
+      <div class="row">
+        <div class="three columns">{{renderId}}</div>
         <div class="three columns">
           {{^name}}
             Anonymous.
           {{/name}}
           {{name}}
         </div>
-        <div class="six columns">{{time}}</div>
+        <div class="six columns">{{renderDate}}</div>
       </div>
       <div class="row">
-        <div class="twelve columns">{{comment}}</div>
+        <div class="twelve columns">{{{renderComment}}}</div>
       </div>
-    {{/people}}
+    {{/comments}}
 
     <form action="/person" method="post">
 

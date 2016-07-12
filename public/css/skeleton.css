@@ -124,7 +124,7 @@ body {
   font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
   line-height: 1.6;
   font-weight: 400;
-  font-family: "VCR OSD mono";
+  font-family: "VCR OSD mono", "Times New Roman";
   color: #222; }
 
 
@@ -143,12 +143,12 @@ h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; color: #A9F5A9;}
 
 /* Larger than phablet */
 @media (min-width: 550px) {
-  h1 { font-size: 5.0rem; }
-  h2 { font-size: 4.2rem; }
-  h3 { font-size: 3.6rem; }
-  h4 { font-size: 3.0rem; }
-  h5 { font-size: 2.4rem; }
-  h6 { font-size: 1.5rem; }
+  h1 { font-size: 5.0rem; color: #A9F5A9;}
+  h2 { font-size: 4.2rem; color: #A9F5A9;}
+  h3 { font-size: 3.6rem; color: #A9F5A9;}
+  h4 { font-size: 3.0rem; color: #A9F5A9;}
+  h5 { font-size: 2.4rem; color: #A9F5A9;}
+  h6 { font-size: 1.5rem; color: #A9F5A9;}
 }
 
 p {
