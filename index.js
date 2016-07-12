@@ -66,7 +66,7 @@ var renderMainPage = function(args) {
       }
 
       .headings {
-        border-top: 2px solid #A9F5A9; 
+        padding-top: 1em;
         font-size: 2em; 
         border-bottom: 2px solid #A9F5A9; 
       }
@@ -76,10 +76,18 @@ var renderMainPage = function(args) {
         padding-bottom: 1em;
       }
 
+      .imgur {
+        width: 50%;
+      }
+
+      .shitty-windows-gif {
+        margin-top: 4em;
+      }
+
     </style>
   </head>
   <body>
-    <audio id="vaporwavemusic" controls autoplay>
+    <audio id="vaporwavemusic" autoplay>
       <source src="music/macintoshplus.mp3" type="audio/mpeg"/>
     </audio>
 
@@ -109,11 +117,11 @@ var renderMainPage = function(args) {
 
       <form action="/home" method="post">
 
-        <h2>Add New Person</h2>
         <div class="row">
           <div class="seven columns">
+            <h3>Comment</h3>
             <label for="name">Your Name</label>
-            <input class="u-full-width" align="center" type="text" placeholder="name" name="name">
+            <input class="u-full-width" align="center" type="text" placeholder="name" name="anonymous">
             <label for="comment">Comment</label>
             <textarea class="u-full-width" align="center" type="text" placeholder="post here" name="comment"></textarea>
             <input class="button-primary u-pull-center" type="submit" value="Submit">
@@ -173,11 +181,44 @@ function anonymous(name){
   return name;
 }
 
+function renderComment(comment) {
+
+  // test for youtube
+  var yt = null;
+  var im = null;
+
+  if (yt = /youtube\.com\/watch\?v\=([a-z\-0-9_]+)/ig.exec(comment)) {
+    var embedUrl = `https://www.youtube.com/embed/${yt[1]}`;
+    return `<p>${comment}</p><iframe width="420" height="315" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`;
+  }
+
+  // test for imgur
+  if (im = /https?:\/\/i?\.?imgur\.com\/([a-z_\-0-9\.]+)/ig.exec(comment)) {
+    var imgTag = 'imgur cannot display because you need the extension.';
+    if (im[1].indexOf('.') !== -1) {
+      imgTag = `<img class="imgur" src="http://i.imgur.com/${im[1]}/>`;
+    }
+
+    return `<p>${comment}</p><p>${imgTag}</p>`;
+  }
+  // else test for other, renderother
+  // ...
+  // base case, just return the plain jane comment
+  return comment;
+}
+
 // Gets the information from the database
 app.get('/home', function (req, res) {
   var peopleList = [];
 
   connection.query('SELECT * from test2', function(err, people, fields) {
+    if (!people.length) {
+      peopleList.push(`
+        <div class="row">
+          <div class="twelve columns">No Comments</div>
+        </div>
+      `);
+    }
     people.map(function(person) {
       peopleList.push(`
         <div class="row">
@@ -186,7 +227,7 @@ app.get('/home', function (req, res) {
           <div class="six columns">${formatDate(person.time)}</div>
         </div>
         <div class="row">
-          <div class="twelve columns">${person.comment}</div>
+          <div class="twelve columns">${renderComment(person.comment)}</div>
         </div>
       `);
     })
