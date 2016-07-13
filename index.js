@@ -23,7 +23,7 @@ var connection = mysql.createConnection({
 });
 
 // Reads in newly added comments
-app.post('/person', function (req, res) {
+app.post('/comment', function (req, res) {
   console.log(req.body);
 
   // Captured Values
@@ -39,18 +39,23 @@ app.post('/person', function (req, res) {
 // Gets the information from the database
 app.get('/', function (req, res) {
 
-  connection.query('SELECT * from test2', function(err, comments, fields) {
+  var page = Number(req.query.page || 1);
+  console.log(req.query);
+
+  connection.query('SELECT * FROM test2 LIMIT 5 OFFSET ' + ((page-1) * 5), function(err, comments, fields) {
 
     res.render('index', {
       title: 'Macintoshplus',
+      page: page,
+      nextPage: page+1,
       comments: comments,
       renderDate: function() {
-        if (!this.date || this.date === '0000-00-00 00:00:00') {
+        if (!this.time || this.time === '0000-00-00 00:00:00') {
           return 'N/A';
         }
-        return date;
+        return this.time;
       },
-      renderId: function() {
+      renderId: function(test) {
         // renders the Id count
         var prefix = "0000";
         return prefix.substring(0, prefix.length-String(this.id).length) + this.id;
@@ -69,7 +74,7 @@ app.get('/', function (req, res) {
         if (im = /https?:\/\/i?\.?imgur\.com\/([a-z_\-0-9\.]+)/ig.exec(this.comment)) {
           var imgTag = 'imgur cannot display because you need the extension.';
           if (im[1].indexOf('.') !== -1) {
-            imgTag = `<img class="imgur" src="http://i.imgur.com/${im[1]}/>`;
+            imgTag = `<img class="imgur" src="http://i.imgur.com/${im[1]}"/>`;
           }
           return `<p>${this.comment}</p><p>${imgTag}</p>`;
         }

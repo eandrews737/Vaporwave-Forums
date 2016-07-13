@@ -17,13 +17,13 @@
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/png" href="images/logo.png">
 
   <title>{{title}}</title>
 </head>
 <body>
-  <audio id="vaporwavemusic" autoplay>
-    <source src="music/macintoshplus.mp3" type="audio/mpeg"/>
+  <audio id="vaporwavemusic" controls autoplay>
+    <source src="music/startrek.mp3" type="audio/mpeg"/>
   </audio>
 
   <div class="container">
@@ -33,12 +33,12 @@
     </p>
 
     <h1>
-    95 Windows
+    Star Trek
     </h1>
 
     <div class="row">
       <div class="eight columns offset-by-two">
-        <img src="images/vaporhorde.gif" alt="1991" align="center" />
+        <img src="images/vaporhorde.gif" alt="1991" align="center" style="margin: 20px 0px"/>
       </div>
     </div>
 
@@ -53,6 +53,7 @@
         <div class="twelve columns">No Comments</div>
       </div>
     {{/comments}}
+
     {{#comments}}
       <div class="row">
         <div class="three columns">{{renderId}}</div>
@@ -69,9 +70,9 @@
       </div>
     {{/comments}}
 
-    <form action="/person" method="post">
+    <form action="/comment" method="post">
 
-      <h2>Add New Person</h2>
+      <h2>Comment</h2>
       <div class="row">
         <div class="seven columns">
           <label for="name">Your Name</label>
@@ -83,6 +84,7 @@
         <div class="five columns">
           <img class="shitty-windows-gif" src="images/windowswindows95.gif" alt="helpme" />
         </div>
+        <a href="?page={{nextPage}}">next page</a>
       </div>
     </form>
 
