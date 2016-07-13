@@ -1,0 +1,35 @@
+
+/* custom styles here */
+body{
+  margin-top: 2em;
+  background-color: #F5A9BC;
+}
+
+body, h1, h2 { text-align: center }
+
+input, textarea { text-align: left; resize: none;}
+
+img {
+  width: 100%;
+}
+
+.following {
+  text-transform: uppercase;
+  position: fixed;
+  top: 0;
+  color: #A9F5A9;
+  letter-spacing: .4em;
+  font-size: 1em;
+  background-color: #f5a9bc;
+}
+
+.headings {
+  border-top: 2px solid #A9F5A9; 
+  font-size: 2em; 
+  border-bottom: 2px solid #A9F5A9; 
+}
+
+.headings, .row .twelve {
+  border-bottom: 3px solid #A9F5A9;
+  padding-bottom: 1em;
+}
