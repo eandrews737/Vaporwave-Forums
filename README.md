@@ -1,7 +1,7 @@
 
 #Sideproject
 
-A project demostrating Eric's slow journey to being a successful web developer.
+A project demostrating Eric's amazing journey on learning to be a web developer.
 
 ##Installation
 

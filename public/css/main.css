@@ -2,7 +2,8 @@
 /* custom styles here */
 body{
   margin-top: 2em;
-  background-color: #F5A9BC;
+  background-color: #4D4D4D;
+  color: #FFF;
 }
 
 body, h1, h2 { text-align: center }
@@ -13,22 +14,49 @@ img {
   width: 100%;
 }
 
-.following {
-  text-transform: uppercase;
+#following {
   position: fixed;
   top: 0;
-  color: #A9F5A9;
-  letter-spacing: .4em;
-  font-size: 1em;
-  background-color: #f5a9bc;
+  right: 0;
+  width: 100%;
+  background: #000;
 }
 
 .headings {
   font-size: 2em; 
-  border-bottom: 2px solid #A9F5A9; 
+  border-bottom: 4px solid #FFD1E1; 
 }
 
-.headings, .row .twelve {
-  border-bottom: 3px solid #A9F5A9;
+#comments .row {
+  padding-top: 1em;
   padding-bottom: 1em;
+  align: left;
+}
+
+.imgur {
+    padding-top: 1em;
+    height: auto;
+    width: 300px;
+}
+
+.imgurLarge {
+    height: 300%;
+    width: 300%;
+}
+
+.headBox{
+    border-style: outset;
+    background: #3D3D3D;
+    border-color: pink;
+}
+
+.commentBox{
+    border-style: inset;
+    background: #343434;
+    border-color: pink;
+}
+
+h1{
+
+  color: pink;
 }

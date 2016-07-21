@@ -8,7 +8,7 @@
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
+  <link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/normalize.css">
@@ -19,26 +19,96 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/logo.png">
 
+  <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+
+  <script type="text/javascript">
+
+  $(document).ready(function() {
+
+    // Resizes the imgur images
+    $( 'body' ).delegate('.imgur', 'click', function() {
+      
+      $( this ).toggleClass('imgurLarge');
+    });
+
+    // Starting page number
+    var currentPage = 1;
+    
+    // Replaces the comments with the next 5 available
+    // e is the informatiom that the html processes; stopping it here
+    $( '.pagination.next' ).click(function(e){
+
+      e.preventDefault();
+
+      currentPage++;
+
+      if(currentPage > 10){
+        currentPage = 10;
+      }
+
+      $.get('?page=' + (currentPage), function(html){
+        var comments = $(html).find('#comments');
+        $( '#comments').replaceWith(comments);
+
+        // updates the page number
+        $('#pageNumber').text('Page ' + currentPage + ' of 10');
+
+        // returns the browser to the top
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+
+      });
+
+    });
+
+    // goes back a page
+    $( '.pagination.prev' ).click(function(e){
+
+      e.preventDefault();
+
+      currentPage--;
+
+      // the lowest page is one
+      if(currentPage < 1){
+        currentPage = 1;
+      }
+
+      $.get('?page=' -(currentPage), function(html){
+        var comments = $(html).find('#comments');
+        $( '#comments').replaceWith(comments);
+
+        // updates the page number
+        $('#pageNumber').text('Page ' + currentPage + ' of 10');
+
+        // returns the browser to the top
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+
+      });
+    });
+  });
+
+
+
+  </script>
+
   <title>{{title}}</title>
 </head>
 <body>
-  <audio id="vaporwavemusic" controls autoplay>
-    <source src="music/startrek.mp3" type="audio/mpeg"/>
-  </audio>
 
   <div class="container">
 
-    <p class="following">
-      AESTHETICS
-    </p>
+    <ul id="following">
+      <a href="">home</a>
+      <a href="page2">Page 2</a>
+      <a href="page3">Page 3</a>
+    </ul>
 
-    <h1>
-    Star Trek
-    </h1>
+    <h1>Star Trek</h1>
+
+    <h4 id="pageNumber">Page 1 of 10</h4>
 
     <div class="row">
       <div class="eight columns offset-by-two">
-        <img src="images/vaporhorde.gif" alt="1991" align="center" style="margin: 20px 0px"/>
+        <img src="images/vaporhorde.gif" alt="1991" align="center" style="margin: 40px 0px"/>
       </div>
     </div>
 
@@ -54,37 +124,52 @@
       </div>
     {{/comments}}
 
+    <div id="comments">
     {{#comments}}
-      <div class="row">
-        <div class="three columns">{{renderId}}</div>
-        <div class="three columns">
+      <div class="row headBox">
+        <div class="two columns">{{renderId}}</div>
+        <div class="three columns" style="color:blue;">
           {{^name}}
-            Anonymous.
+            Anonymous
           {{/name}}
           {{name}}
         </div>
-        <div class="six columns">{{renderDate}}</div>
+        <div class="four columns">{{renderDate}}</div>
+        <div class="three columns"><button type="button">reply</button></div>
       </div>
-      <div class="row">
-        <div class="twelve columns">{{{renderComment}}}</div>
+      <div class="row commentBox">
+        <div class="six columns">{{{renderImage}}}</div>
+        <div class="six columns"><p>{{{comment}}}</p></div>
       </div>
     {{/comments}}
+    </div>
 
     <form action="/comment" method="post">
 
       <h2>Comment</h2>
       <div class="row">
-        <div class="seven columns">
+        <div class="six columns offset-by-three">
           <label for="name">Your Name</label>
           <input class="u-full-width" align="center" type="text" placeholder="name" name="name">
+          <label for="name">Media Link</label>
+          <input class="u-full-width" align="center" type="text" placeholder="paste link here" name="media">
           <label for="comment">Comment</label>
           <textarea class="u-full-width" align="center" type="text" placeholder="post here" name="comment"></textarea>
           <input class="button-primary u-pull-center" type="submit" value="Submit">
         </div>
-        <div class="five columns">
-          <img class="shitty-windows-gif" src="images/windowswindows95.gif" alt="helpme" />
+      </div>
+        <div class="row">
+          <div class="one columns offset-by-five">
+            <a class="pagination prev" href="?page={{prevPage}}">
+            <img src="images/Left_arrow.svg" height="42" width="42" alt="last page">
+            </a>
+          </div>
+          <div class="one columns">
+            <a class="pagination next" href="?page={{nextPage}}">
+            <img src="images/Right_arrow.svg" height="42" width="42" alt="next page">
+            </a>
+          </div>
         </div>
-        <a href="?page={{nextPage}}">next page</a>
       </div>
     </form>
 

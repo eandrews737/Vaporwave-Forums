@@ -27,9 +27,9 @@ app.post('/comment', function (req, res) {
   console.log(req.body);
 
   // Captured Values
-  var sentCrap = [req.body.name, req.body.comment];
+  var sentCrap = [req.body.name, req.body.comment, req.body.media];
 
-  connection.query('INSERT INTO `test2` (`name`, `comment`) VALUES (?, ?)', sentCrap, function(err, comments, fields) {
+  connection.query('INSERT INTO `test2` (`name`, `comment`, `media`) VALUES (?, ?, ?)', sentCrap, function(err, comments, fields) {
     console.log(err);
     // show home page
     res.redirect('/');
@@ -45,7 +45,7 @@ app.get('/', function (req, res) {
   connection.query('SELECT * FROM test2 LIMIT 5 OFFSET ' + ((page-1) * 5), function(err, comments, fields) {
 
     res.render('index', {
-      title: 'Macintoshplus',
+      title: 'Star Trek Fan Page',
       page: page,
       nextPage: page+1,
       comments: comments,
@@ -57,31 +57,31 @@ app.get('/', function (req, res) {
       },
       renderId: function(test) {
         // renders the Id count
-        var prefix = "0000";
+        var prefix = "0000000";
         return prefix.substring(0, prefix.length-String(this.id).length) + this.id;
       },
-      renderComment: function() {
+      renderImage: function() {
         // test for youtube
         var yt = null;
         var im = null;
 
-        if (yt = /youtube\.com\/watch\?v\=([a-z\-0-9_]+)/ig.exec(this.comment)) {
+        if (yt = /youtube\.com\/watch\?v\=([a-z\-0-9_]+)/ig.exec(this.media)) {
           var embedUrl = `https://www.youtube.com/embed/${yt[1]}`;
-          return `<p>${this.comment}</p><iframe width="420" height="315" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`;
+          return `<iframe width="420" height="315" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`;
         }
 
         // test for imgur
-        if (im = /https?:\/\/i?\.?imgur\.com\/([a-z_\-0-9\.]+)/ig.exec(this.comment)) {
+        if (im = /https?:\/\/i?\.?imgur\.com\/([a-z_\-0-9\.]+)/ig.exec(this.media)) {
           var imgTag = 'imgur cannot display because you need the extension.';
           if (im[1].indexOf('.') !== -1) {
             imgTag = `<img class="imgur" src="http://i.imgur.com/${im[1]}"/>`;
           }
-          return `<p>${this.comment}</p><p>${imgTag}</p>`;
+          return `<p>${imgTag}</p>`;
         }
         // else test for other, renderother
         // ...
         // base case, just return the plain jane comment
-        return this.comment;
+        return null;
       },
     });
   });
