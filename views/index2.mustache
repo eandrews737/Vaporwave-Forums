@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/star-trek-logo.png">
+
+  <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+
+  <script type="text/javascript">
+
+  $(document).ready(function() {
+
+    // if they enter something that isn't a number
+    $("#txtboxToFilter").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+             // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+             // Allow: Ctrl+C
+            (e.keyCode == 67 && e.ctrlKey === true) ||
+             // Allow: Ctrl+X
+            (e.keyCode == 88 && e.ctrlKey === true) ||
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+
+
+  });
+
+  </script>
+
+  <title>Back to the Past</title>
+</head>
+<body>
+
+  <ul id="following">
+    <a href="">Modern Era</a>
+    <a href="index2">The Next Generation</a>
+    <a href="page3">Page 3</a>
+  </ul>
+  <div class="twelve columns">
+
+  </div>
+  <div class="eight columns offset-by-two verticalHeader">
+    <h1 align="center">Select a year</h1>
+  </div>
+
+<div>
+  <div class="six columns" align="right">
+    <h4>Take me back to</h4>
+  </div>
+  <div class="six columns">
+    <input class="u-full-width yearInput" align="left" style="height: 200px; width: 250px; font-size:100px;" type="text" placeholder="1985" name="timeperiod">
+  </div>
+</div>
+
+</body>
+</html>

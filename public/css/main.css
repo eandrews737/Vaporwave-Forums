@@ -2,8 +2,8 @@
 /* custom styles here */
 body{
   margin-top: 2em;
-  background-color: #4D4D4D;
-  color: #FFF;
+  background-color: #FFF;
+  color: #000;
 }
 
 body, h1, h2 { text-align: center }
@@ -19,44 +19,54 @@ img {
   top: 0;
   right: 0;
   width: 100%;
+  height: 40px;
   background: #000;
 }
 
 .headings {
   font-size: 2em; 
-  border-bottom: 4px solid #FFD1E1; 
 }
 
 #comments .row {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  align: left;
+  padding-top: 2em;
+  padding-bottom: 0em;
 }
 
 .imgur {
-    padding-top: 1em;
-    height: auto;
-    width: 300px;
+  padding-left: .5em;
+  height: 300px;
+  width: 350px
 }
 
 .imgurLarge {
-    height: 300%;
-    width: 300%;
+  height: auto;
+  width: 160%
 }
 
 .headBox{
-    border-style: outset;
-    background: #3D3D3D;
-    border-color: pink;
+  border-style: outset;
+  background: #3D3D3D;
+  border-color: #E9BE2E;
 }
 
 .commentBox{
-    border-style: inset;
     background: #343434;
-    border-color: pink;
+    padding-right: 1.5em;
+}
+
+#topBar{
+    
+   position:fixed;
+   top:0;
+   left:0;
+   width:100%;
+   height:60px;
+   background-color: #FFF;
+
 }
 
 h1{
 
-  color: pink;
+  color: #E9BE2E;
 }
+
