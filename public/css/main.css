@@ -9,6 +9,7 @@ body{
 body, h1, h2 { text-align: center }
 
 input, textarea { text-align: left; resize: none;}
+button[disabled],input[disabled] { cursor: not-allowed; }
 
 img {
   width: 100%;
@@ -63,6 +64,11 @@ img {
    height:60px;
    background-color: #FFF;
 
+}
+
+#yearInput{
+
+  
 }
 
 h1{
