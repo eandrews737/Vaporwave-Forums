@@ -1,7 +1,7 @@
 
 #Sideproject
 
-A project demostrating Eric's amazing journey on learning to be a web developer.
+A side project in which a famous social site was almost entirely cloned
 
 ##Installation
 
@@ -16,4 +16,7 @@ Now to run it just do:
 
     npm start
 
-Navigate to http://localhost:8080/
+Navigate to http://localhost:5432/
+
+###Running the Database
+
